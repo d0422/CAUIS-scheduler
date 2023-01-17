@@ -1,21 +1,32 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IFusion } from '../type/subject';
+import {
+  ICyberSecurity,
+  IFusion,
+  IIndustrialSecurity,
+  ISubject,
+} from '../type/subject';
 import checkbox from '../img/checkbox.png';
 import notcheckbox from '../img/notcheckbox.png';
 import { useSetRecoilState } from 'recoil';
-import { CyberSecurity, totalCredit } from '../atom/TotalCredit';
-
-interface IAtom {
-  majorBase: number;
-  majorRequire: number;
-  relation: number;
-}
-
-const CheckBox = ({ subjectInfo }: { subjectInfo: IFusion }) => {
+import {
+  CyberSecurity,
+  IndustrialSecurity,
+  totalCredit,
+} from '../atom/TotalCredit';
+type SetterOrUpdater<T> = (valOrUpdater: ((currVal: T) => T) | T) => void;
+const CheckBox = ({
+  subjectInfo,
+  setRecoilValue,
+}: {
+  subjectInfo: IFusion | ISubject;
+  setRecoilValue:
+    | SetterOrUpdater<IIndustrialSecurity>
+    | SetterOrUpdater<ICyberSecurity>;
+}) => {
   const [state, setState] = useState<Boolean>(false);
+
   const setCredit = useSetRecoilState(totalCredit);
-  const setCyberSecurity = useSetRecoilState(CyberSecurity);
   const SRC = state ? checkbox : notcheckbox;
   const setFunc = () => {
     setState((prev) => !prev);
@@ -23,9 +34,9 @@ const CheckBox = ({ subjectInfo }: { subjectInfo: IFusion }) => {
       ? setCredit((prev) => prev + subjectInfo.credit)
       : setCredit((prev) => prev - subjectInfo.credit);
 
-    state ? setCyberSecurity(plus) : setCyberSecurity(minus);
+    state ? setRecoilValue(plus) : setRecoilValue(minus);
   };
-  function minus(prev: IAtom) {
+  function minus(prev: any) {
     const newObject = { ...prev };
     if (subjectInfo.type === '전공기초')
       newObject.majorBase = newObject.majorBase - subjectInfo.credit;
@@ -33,9 +44,12 @@ const CheckBox = ({ subjectInfo }: { subjectInfo: IFusion }) => {
       newObject.majorRequire = newObject.majorRequire - subjectInfo.credit;
     if (subjectInfo.type === '관계학')
       newObject.relation = newObject.relation - subjectInfo.credit;
+    if (subjectInfo.type === '전공') {
+      newObject.major = newObject.major - subjectInfo.credit;
+    }
     return newObject;
   }
-  function plus(prev: IAtom) {
+  function plus(prev: any) {
     const newObject = { ...prev };
     if (subjectInfo.type === '전공기초')
       newObject.majorBase = newObject.majorBase + subjectInfo.credit;
@@ -43,6 +57,9 @@ const CheckBox = ({ subjectInfo }: { subjectInfo: IFusion }) => {
       newObject.majorRequire = newObject.majorRequire + subjectInfo.credit;
     if (subjectInfo.type === '관계학')
       newObject.relation = newObject.relation + subjectInfo.credit;
+    if (subjectInfo.type === '전공') {
+      newObject.major = newObject.major + subjectInfo.credit;
+    }
     return newObject;
   }
 

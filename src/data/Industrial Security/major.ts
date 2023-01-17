@@ -33,4 +33,4 @@ const majorSubSet: ISubject[] = [
     credit: 3,
   },
 ];
-export const major = { ...majorBase, ...majorRequire, ...majorSubSet };
+export default majorSubSet;

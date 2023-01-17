@@ -1,22 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FusionType, IFusion } from '../type/subject';
+import {
+  FusionType,
+  ICyberSecurity,
+  IFusion,
+  IIndustrialSecurity,
+  ISubject,
+  subjectType,
+} from '../type/subject';
 import CheckBox from './CheckBox';
-import { useRecoilValue } from 'recoil';
-import { CyberSecurity } from '../atom/TotalCredit';
-
-const MajorSection = ({ data }: { data: IFusion[] }) => {
-  const cyber = useRecoilValue(CyberSecurity);
-
-  function getDisplayType(type: FusionType): number {
+type SetterOrUpdater<T> = (valOrUpdater: ((currVal: T) => T) | T) => void;
+const MajorSection = ({
+  data,
+  recoilValue,
+  setRecoilValue,
+}: {
+  data: IFusion[] | ISubject[];
+  recoilValue: ICyberSecurity | IIndustrialSecurity;
+  setRecoilValue:
+    | SetterOrUpdater<IIndustrialSecurity>
+    | SetterOrUpdater<ICyberSecurity>;
+}) => {
+  function getDisplayType(type: FusionType | subjectType): number {
     if (type === '전공기초') {
-      return cyber.majorBase;
+      return recoilValue.majorBase;
     }
     if (type === '전공필수') {
-      return cyber.majorRequire;
+      return recoilValue.majorRequire;
     }
     if (type === '관계학') {
-      return cyber.relation;
+      return (recoilValue as ICyberSecurity).relation;
+    }
+    if (type === '전공') {
+      return (recoilValue as IIndustrialSecurity).major;
     }
     return 0;
   }
@@ -28,8 +44,12 @@ const MajorSection = ({ data }: { data: IFusion[] }) => {
         {getDisplayType(data[0].type) >= 0 ? getDisplayType(data[0].type) : 0}
         학점 남았습니다.
       </DataDisplay>
-      {data.map((data: IFusion) => (
-        <CheckBox key={data.name} subjectInfo={data}></CheckBox>
+      {data.map((d: IFusion | ISubject, i: number) => (
+        <CheckBox
+          key={d.name + i}
+          subjectInfo={d}
+          setRecoilValue={setRecoilValue}
+        ></CheckBox>
       ))}
       <hr></hr>
     </>

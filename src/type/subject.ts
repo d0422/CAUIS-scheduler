@@ -10,3 +10,13 @@ export interface IFusion {
   credit: number;
   type: FusionType;
 }
+export interface IIndustrialSecurity {
+  majorBase: number;
+  majorRequire: number;
+  major: number;
+}
+export interface ICyberSecurity {
+  majorBase: number;
+  majorRequire: number;
+  relation: number;
+}
