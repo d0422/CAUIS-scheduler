@@ -5,6 +5,13 @@ import checkbox from '../img/checkbox.png';
 import notcheckbox from '../img/notcheckbox.png';
 import { useSetRecoilState } from 'recoil';
 import { CyberSecurity, totalCredit } from '../atom/TotalCredit';
+
+interface IAtom {
+  majorBase: number;
+  majorRequire: number;
+  relation: number;
+}
+
 const CheckBox = ({ subjectInfo }: { subjectInfo: IFusion }) => {
   const [state, setState] = useState<Boolean>(false);
   const setCredit = useSetRecoilState(totalCredit);
@@ -16,30 +23,28 @@ const CheckBox = ({ subjectInfo }: { subjectInfo: IFusion }) => {
       ? setCredit((prev) => prev + subjectInfo.credit)
       : setCredit((prev) => prev - subjectInfo.credit);
 
-    state
-      ? setCyberSecurity((prev) => {
-          const newObject = { ...prev };
-          if (subjectInfo.type === '전공기초')
-            newObject.majorBase = newObject.majorBase + subjectInfo.credit;
-          if (subjectInfo.type === '전공필수')
-            newObject.majorRequire =
-              newObject.majorRequire + subjectInfo.credit;
-          if (subjectInfo.type === '관계학')
-            newObject.relation = newObject.relation + subjectInfo.credit;
-          return newObject;
-        })
-      : setCyberSecurity((prev) => {
-          const newObject = { ...prev };
-          if (subjectInfo.type === '전공기초')
-            newObject.majorBase = newObject.majorBase - subjectInfo.credit;
-          if (subjectInfo.type === '전공필수')
-            newObject.majorRequire =
-              newObject.majorRequire - subjectInfo.credit;
-          if (subjectInfo.type === '관계학')
-            newObject.relation = newObject.relation - subjectInfo.credit;
-          return newObject;
-        });
+    state ? setCyberSecurity(plus) : setCyberSecurity(minus);
   };
+  function minus(prev: IAtom) {
+    const newObject = { ...prev };
+    if (subjectInfo.type === '전공기초')
+      newObject.majorBase = newObject.majorBase - subjectInfo.credit;
+    if (subjectInfo.type === '전공필수')
+      newObject.majorRequire = newObject.majorRequire - subjectInfo.credit;
+    if (subjectInfo.type === '관계학')
+      newObject.relation = newObject.relation - subjectInfo.credit;
+    return newObject;
+  }
+  function plus(prev: IAtom) {
+    const newObject = { ...prev };
+    if (subjectInfo.type === '전공기초')
+      newObject.majorBase = newObject.majorBase + subjectInfo.credit;
+    if (subjectInfo.type === '전공필수')
+      newObject.majorRequire = newObject.majorRequire + subjectInfo.credit;
+    if (subjectInfo.type === '관계학')
+      newObject.relation = newObject.relation + subjectInfo.credit;
+    return newObject;
+  }
 
   return (
     <Wrapper>

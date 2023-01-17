@@ -8,7 +8,7 @@ import { CyberSecurity } from '../atom/TotalCredit';
 const MajorSection = ({ data }: { data: IFusion[] }) => {
   const cyber = useRecoilValue(CyberSecurity);
 
-  function getDisplayType(type: FusionType) {
+  function getDisplayType(type: FusionType): number {
     if (type === '전공기초') {
       return cyber.majorBase;
     }
@@ -18,12 +18,16 @@ const MajorSection = ({ data }: { data: IFusion[] }) => {
     if (type === '관계학') {
       return cyber.relation;
     }
+    return 0;
   }
 
   return (
     <>
       <SubTitle>{data[0].type}</SubTitle>
-      <DataDisplay>{getDisplayType(data[0].type)} 학점 남았습니다.</DataDisplay>
+      <DataDisplay>
+        {getDisplayType(data[0].type) >= 0 ? getDisplayType(data[0].type) : 0}
+        학점 남았습니다.
+      </DataDisplay>
       {data.map((data: IFusion) => (
         <CheckBox key={data.name} subjectInfo={data}></CheckBox>
       ))}
