@@ -1,15 +1,18 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { GlobalStyle } from './GlobalStyle';
 import Main from './page/Main';
-
+import { RecoilRoot } from 'recoil';
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <RecoilRoot>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Main />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
     </>
   );
 }
