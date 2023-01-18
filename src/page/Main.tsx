@@ -27,10 +27,11 @@ const Main = () => {
         <Title>{selector}</Title>
       </Header>
 
-      {modal ? (
+      {modal && (
         <Modal>
           {category.map((c) => (
             <CategoryTitle
+              key={c}
               onClick={() => {
                 setSelector(c);
                 setModal(false);
@@ -40,8 +41,6 @@ const Main = () => {
             </CategoryTitle>
           ))}
         </Modal>
-      ) : (
-        ''
       )}
 
       <hr></hr>
@@ -68,6 +67,7 @@ const CategoryTitle = styled.div`
   justify-content: center;
   font-size: 30px;
   padding-top: 5px;
+  cursor: pointer;
 `;
 const TotalCredit = styled.div`
   padding: 20px;

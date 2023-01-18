@@ -4,11 +4,13 @@ export interface ISubject {
   name: string;
   credit: number;
   type: subjectType;
+  hasTaken: boolean;
 }
 export interface IFusion {
   name: string;
   credit: number;
   type: FusionType;
+  hasTaken: boolean;
 }
 export interface IIndustrialSecurity {
   majorBase: number;

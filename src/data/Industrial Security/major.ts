@@ -6,31 +6,37 @@ const majorSubSet: ISubject[] = [
     name: '법학개론',
     type: '전공',
     credit: 3,
+    hasTaken: false,
   },
   {
     name: '경영경제데이터 분석 소프트웨어',
     type: '전공',
     credit: 3,
+    hasTaken: false,
   },
   {
     name: '사이버 침해사고 대응',
     type: '전공',
     credit: 3,
+    hasTaken: false,
   },
   {
-    name: 'SW 프로그래밍 2',
+    name: 'SW 프로그래밍2',
     type: '전공',
     credit: 3,
+    hasTaken: false,
   },
   {
     name: '보안 커뮤니케이션',
     type: '전공',
     credit: 3,
+    hasTaken: false,
   },
   {
     name: '보안 통계학',
     type: '전공',
     credit: 3,
+    hasTaken: false,
   },
 ];
 export default majorSubSet;

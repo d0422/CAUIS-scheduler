@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import {
   ICyberSecurity,
@@ -9,11 +8,14 @@ import {
 import checkbox from '../img/checkbox.png';
 import notcheckbox from '../img/notcheckbox.png';
 import { useSetRecoilState } from 'recoil';
-import {
-  CyberSecurity,
-  IndustrialSecurity,
-  totalCredit,
-} from '../atom/TotalCredit';
+import { totalCredit } from '../atom/TotalCredit';
+import { majorBase } from '../data/CyberSecurity/base';
+import { relation } from '../data/CyberSecurity/relation';
+import { majorRequire } from '../data/CyberSecurity/require';
+import { majorBase as ISmajorBase } from '../data/Industrial Security/base';
+import { majorRequire as ISmajorRequire } from '../data/Industrial Security/require';
+import majorSubSet from '../data/Industrial Security/major';
+
 type SetterOrUpdater<T> = (valOrUpdater: ((currVal: T) => T) | T) => void;
 const CheckBox = ({
   subjectInfo,
@@ -24,41 +26,67 @@ const CheckBox = ({
     | SetterOrUpdater<IIndustrialSecurity>
     | SetterOrUpdater<ICyberSecurity>;
 }) => {
-  const [state, setState] = useState<Boolean>(false);
-
   const setCredit = useSetRecoilState(totalCredit);
-  const SRC = state ? checkbox : notcheckbox;
-  const setFunc = () => {
-    setState((prev) => !prev);
-    state
-      ? setCredit((prev) => prev + subjectInfo.credit)
-      : setCredit((prev) => prev - subjectInfo.credit);
+  const SRC = subjectInfo.hasTaken ? checkbox : notcheckbox;
+  const checkArray = [
+    majorBase,
+    relation,
+    majorRequire,
+    ISmajorBase,
+    ISmajorRequire,
+    majorSubSet,
+  ];
 
-    state ? setRecoilValue(plus) : setRecoilValue(minus);
+  const setFunc = () => {
+    checkArray.forEach((array) => {
+      array.forEach((data) => {
+        if (data.name === subjectInfo.name) data.hasTaken = !data.hasTaken;
+      });
+    });
+    subjectInfo.hasTaken
+      ? setCredit((prev) => prev - subjectInfo.credit)
+      : setCredit((prev) => prev + subjectInfo.credit);
+    subjectInfo.hasTaken ? setRecoilValue(minus) : setRecoilValue(plus);
   };
+
   function minus(prev: any) {
     const newObject = { ...prev };
-    if (subjectInfo.type === '전공기초')
-      newObject.majorBase = newObject.majorBase - subjectInfo.credit;
-    if (subjectInfo.type === '전공필수')
-      newObject.majorRequire = newObject.majorRequire - subjectInfo.credit;
-    if (subjectInfo.type === '관계학')
-      newObject.relation = newObject.relation - subjectInfo.credit;
+    if (subjectInfo.type === '전공기초') {
+      newObject.majorBase -= subjectInfo.credit;
+      if (newObject.major !== undefined) {
+        newObject.major -= subjectInfo.credit;
+      }
+    }
+    if (subjectInfo.type === '전공필수') {
+      newObject.majorRequire -= subjectInfo.credit;
+      if (newObject.major !== undefined) {
+        newObject.major -= subjectInfo.credit;
+      }
+    }
+    if (subjectInfo.type === '관계학') newObject.relation -= subjectInfo.credit;
     if (subjectInfo.type === '전공') {
-      newObject.major = newObject.major - subjectInfo.credit;
+      newObject.major -= subjectInfo.credit;
     }
     return newObject;
   }
   function plus(prev: any) {
     const newObject = { ...prev };
-    if (subjectInfo.type === '전공기초')
-      newObject.majorBase = newObject.majorBase + subjectInfo.credit;
-    if (subjectInfo.type === '전공필수')
-      newObject.majorRequire = newObject.majorRequire + subjectInfo.credit;
-    if (subjectInfo.type === '관계학')
-      newObject.relation = newObject.relation + subjectInfo.credit;
+    if (subjectInfo.type === '전공기초') {
+      newObject.majorBase += subjectInfo.credit;
+      if (newObject.major !== undefined) {
+        newObject.major += subjectInfo.credit;
+      }
+    }
+
+    if (subjectInfo.type === '전공필수') {
+      newObject.majorRequire += subjectInfo.credit;
+      if (newObject.major !== undefined) {
+        newObject.major += subjectInfo.credit;
+      }
+    }
+    if (subjectInfo.type === '관계학') newObject.relation += subjectInfo.credit;
     if (subjectInfo.type === '전공') {
-      newObject.major = newObject.major + subjectInfo.credit;
+      newObject.major += subjectInfo.credit;
     }
     return newObject;
   }
