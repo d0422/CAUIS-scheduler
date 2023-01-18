@@ -49,9 +49,25 @@ const Main = () => {
       ) : (
         <IndustrialSecurityComponent />
       )}
+      <Footer>만든 사람</Footer>
+      <Email>eamil : rlfehd2013@naver.com</Email>
+      <Email>instagram: _0422</Email>
+      <Text>오류 또는 데이터 부족시 연락 부탁드립니다.</Text>
     </Wrapper>
   );
 };
+const Footer = styled.div`
+  font-size: 20px;
+  text-align: end;
+`;
+const Email = styled.div`
+  font-size: 14px;
+  text-align: end;
+`;
+const Text = styled.div`
+  font-size: 12px;
+  text-align: end;
+`;
 const Wrapper = styled.div`
   border-style: solid;
   border-color: black;

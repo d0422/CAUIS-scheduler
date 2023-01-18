@@ -1,6 +1,4 @@
 import { ISubject } from '../../type/subject';
-import { majorBase } from './base';
-import { majorRequire } from './require';
 const majorSubSet: ISubject[] = [
   {
     name: '법학개론',
