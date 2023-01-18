@@ -50,8 +50,8 @@ const Main = () => {
         <IndustrialSecurityComponent />
       )}
       <Footer>만든 사람</Footer>
-      <Email>eamil : rlfehd2013@naver.com</Email>
-      <Email>instagram: _0422</Email>
+      <Email>Email : rlfehd2013@naver.com</Email>
+      <Email>Instagram: _0422</Email>
       <Text>오류 또는 데이터 부족시 연락 부탁드립니다.</Text>
     </Wrapper>
   );
