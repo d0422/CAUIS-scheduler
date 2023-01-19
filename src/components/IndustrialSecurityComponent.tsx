@@ -4,43 +4,45 @@ import { majorBase } from '../data/Industrial Security/base';
 import { majorRequire } from '../data/Industrial Security/require';
 import majorSubSet from '../data/Industrial Security/major';
 import { useRecoilState } from 'recoil';
-import { IIndustrialSecurity } from '../type/subject';
+import { IIndustrialSecurity, ISubject } from '../type/subject';
 import { IndustrialSecurity } from '../atom/TotalCredit';
 
 const IndustrialSecurityComponent = () => {
   const [industrialSecurity, setIndustrialSecurity] =
     useRecoilState<IIndustrialSecurity>(IndustrialSecurity);
-  const data = [majorBase, majorRequire, majorSubSet];
-  useEffect(() => {
-    data.forEach((array) => {
-      array.forEach((realData) => {
-        if (realData.hasTaken) {
-          if (realData.type === '전공') {
-            setIndustrialSecurity((prev) => {
-              const newObj = { ...prev };
-              newObj.major -= realData.credit;
-              return newObj;
-            });
-          }
-          if (realData.type === '전공기초') {
-            setIndustrialSecurity((prev) => {
-              const newObj = { ...prev };
-              newObj.majorBase -= realData.credit;
-              newObj.major -= realData.credit;
-              return newObj;
-            });
-          }
-          if (realData.type === '전공필수') {
-            setIndustrialSecurity((prev) => {
-              const newObj = { ...prev };
-              newObj.majorRequire -= realData.credit;
-              newObj.major -= realData.credit;
-              return newObj;
-            });
-          }
+  const IndustrialSecurityMajorData = [majorBase, majorRequire, majorSubSet];
+  const checkDuplicateSubject = (majorTypeArray: ISubject[]) => {
+    majorTypeArray.forEach((subjectData) => {
+      if (subjectData.hasTaken) {
+        if (subjectData.type === '전공') {
+          setIndustrialSecurity((prev) => {
+            const newObj = { ...prev };
+            newObj.major -= subjectData.credit;
+            return newObj;
+          });
         }
-      });
+        if (subjectData.type === '전공기초') {
+          setIndustrialSecurity((prev) => {
+            const newObj = { ...prev };
+            newObj.majorBase -= subjectData.credit;
+            newObj.major -= subjectData.credit;
+            return newObj;
+          });
+        }
+        if (subjectData.type === '전공필수') {
+          setIndustrialSecurity((prev) => {
+            const newObj = { ...prev };
+            newObj.majorRequire -= subjectData.credit;
+            newObj.major -= subjectData.credit;
+            return newObj;
+          });
+        }
+      }
     });
+  };
+
+  useEffect(() => {
+    IndustrialSecurityMajorData.forEach(checkDuplicateSubject);
   }, []);
   return (
     <>
