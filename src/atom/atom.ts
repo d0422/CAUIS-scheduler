@@ -46,3 +46,7 @@ export const EssentialElectionTrust = atom({
   key: 'essentialElectionTrust',
   default: 3,
 });
+export const EssentialElectionCommnunicatation = atom({
+  key: 'essentialElectionCommunication',
+  default: 3,
+});
