@@ -19,7 +19,7 @@ const majorSubSet: ISubject[] = [
     hasTaken: false,
   },
   {
-    name: 'SW 프로그래밍2',
+    name: 'SW프로그래밍2',
     type: '전공',
     credit: 3,
     hasTaken: false,

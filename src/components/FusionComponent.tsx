@@ -11,6 +11,13 @@ const FusionComponent = () => {
   const [cyber, setCyber] = useRecoilState<ICyberSecurity>(CyberSecurity);
   const data = [majorBase, majorRequire, relation];
   useEffect(() => {
+    setCyber((prev) => {
+      const newObj = { ...prev };
+      newObj.majorBase = 9;
+      newObj.majorRequire = 15;
+      newObj.relation = 12;
+      return newObj;
+    });
     data.forEach((array) => {
       array.forEach((realData) => {
         if (realData.hasTaken) {

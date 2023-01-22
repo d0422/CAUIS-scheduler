@@ -42,6 +42,13 @@ const IndustrialSecurityComponent = () => {
   };
 
   useEffect(() => {
+    setIndustrialSecurity((prev) => {
+      const newObj = { ...prev };
+      newObj.major = 45;
+      newObj.majorBase = 15;
+      newObj.majorRequire = 18;
+      return newObj;
+    });
     IndustrialSecurityMajorData.forEach(checkDuplicateSubject);
   }, []);
   return (
