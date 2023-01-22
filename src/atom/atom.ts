@@ -1,5 +1,9 @@
 import { atom } from 'recoil';
-import { ICyberSecurity, IIndustrialSecurity } from '../type/subject';
+import {
+  ICyberSecurity,
+  IIndustrialSecurity,
+  IRequireElective,
+} from '../type/subject';
 export const totalCredit = atom({
   key: 'totalCredit',
   default: 132,
@@ -19,4 +23,13 @@ export const CyberSecurity = atom<ICyberSecurity>({
     majorRequire: 15,
     relation: 12,
   },
+});
+export const RequireElective = atom({
+  key: 'requireElective',
+  default: 14,
+});
+
+export const GeneralElective = atom({
+  key: 'generalElective',
+  default: 15,
 });

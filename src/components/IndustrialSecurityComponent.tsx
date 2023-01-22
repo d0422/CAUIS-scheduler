@@ -5,7 +5,7 @@ import { majorRequire } from '../data/Industrial Security/require';
 import majorSubSet from '../data/Industrial Security/major';
 import { useRecoilState } from 'recoil';
 import { IIndustrialSecurity, ISubject } from '../type/subject';
-import { IndustrialSecurity } from '../atom/TotalCredit';
+import { IndustrialSecurity } from '../atom/atom';
 
 const IndustrialSecurityComponent = () => {
   const [industrialSecurity, setIndustrialSecurity] =

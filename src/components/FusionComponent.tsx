@@ -3,7 +3,7 @@ import { majorBase } from '../data/CyberSecurity/base';
 import { relation } from '../data/CyberSecurity/relation';
 import { majorRequire } from '../data/CyberSecurity/require';
 import { useRecoilState } from 'recoil';
-import { CyberSecurity } from '../atom/TotalCredit';
+import { CyberSecurity } from '../atom/atom';
 import { ICyberSecurity } from '../type/subject';
 import { useEffect } from 'react';
 

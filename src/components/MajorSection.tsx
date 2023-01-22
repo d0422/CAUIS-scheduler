@@ -10,6 +10,7 @@ import {
 } from '../type/subject';
 import CheckBox from './CheckBox';
 type SetterOrUpdater<T> = (valOrUpdater: ((currVal: T) => T) | T) => void;
+
 const MajorSection = ({
   data,
   recoilValue,
@@ -56,11 +57,11 @@ const MajorSection = ({
   );
 };
 
-const SubTitle = styled.div`
+export const SubTitle = styled.div`
   justify-content: center;
   font-size: 15px;
 `;
-const DataDisplay = styled.div`
+export const DataDisplay = styled.div`
   font-size: 15px;
   padding: 10px;
 `;

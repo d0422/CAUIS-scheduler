@@ -8,7 +8,7 @@ import {
 import checkbox from '../img/checkbox.png';
 import notcheckbox from '../img/notcheckbox.png';
 import { useSetRecoilState } from 'recoil';
-import { totalCredit } from '../atom/TotalCredit';
+import { totalCredit } from '../atom/atom';
 import { majorBase } from '../data/CyberSecurity/base';
 import { relation } from '../data/CyberSecurity/relation';
 import { majorRequire } from '../data/CyberSecurity/require';
