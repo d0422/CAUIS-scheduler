@@ -1,26 +1,21 @@
-import { totalCredit } from '../atom/atom';
-import checkbox from '../img/checkbox.png';
-import notcheckbox from '../img/notcheckbox.png';
 import { IEssentialElective, IRequireElective } from '../type/subject';
-import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { useCheckBox } from '../hooks/useCheckBox';
 type SetterOrUpdater<T> = (valOrUpdater: ((currVal: T) => T) | T) => void;
+interface ICheckBoxElection {
+  subjectInfo: IRequireElective | IEssentialElective;
+  setRecoilValue: SetterOrUpdater<number>;
+}
 const CheckBoxElection = ({
   subjectInfo,
   setRecoilValue,
-}: {
-  subjectInfo: IRequireElective | IEssentialElective;
-  setRecoilValue: SetterOrUpdater<number>;
-}) => {
-  const SRC = subjectInfo.hasTaken ? checkbox : notcheckbox;
-  const setCredit = useSetRecoilState(totalCredit);
+}: ICheckBoxElection) => {
+  const [SRC, setTotal] = useCheckBox(subjectInfo);
   const setFunc = () => {
-    subjectInfo.hasTaken && setCredit((prev) => (prev += subjectInfo.credit));
-    !subjectInfo.hasTaken && setCredit((prev) => (prev -= subjectInfo.credit));
-    subjectInfo.hasTaken &&
-      setRecoilValue((prev) => (prev += subjectInfo.credit));
-    !subjectInfo.hasTaken &&
-      setRecoilValue((prev) => (prev -= subjectInfo.credit));
+    setTotal();
+    subjectInfo.hasTaken
+      ? setRecoilValue((prev) => prev + subjectInfo.credit)
+      : setRecoilValue((prev) => prev - subjectInfo.credit);
     subjectInfo.hasTaken = !subjectInfo.hasTaken;
   };
   return (

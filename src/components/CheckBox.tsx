@@ -5,29 +5,23 @@ import {
   IIndustrialSecurity,
   ISubject,
 } from '../type/subject';
-import checkbox from '../img/checkbox.png';
-import notcheckbox from '../img/notcheckbox.png';
-import { useSetRecoilState } from 'recoil';
-import { totalCredit } from '../atom/atom';
 import { majorBase } from '../data/CyberSecurity/base';
 import { relation } from '../data/CyberSecurity/relation';
 import { majorRequire } from '../data/CyberSecurity/require';
 import { majorBase as ISmajorBase } from '../data/Industrial Security/base';
 import { majorRequire as ISmajorRequire } from '../data/Industrial Security/require';
 import majorSubSet from '../data/Industrial Security/major';
+import { useCheckBox } from '../hooks/useCheckBox';
 
 type SetterOrUpdater<T> = (valOrUpdater: ((currVal: T) => T) | T) => void;
-const CheckBox = ({
-  subjectInfo,
-  setRecoilValue,
-}: {
+interface ICheckBox {
   subjectInfo: IFusion | ISubject;
   setRecoilValue:
     | SetterOrUpdater<IIndustrialSecurity>
     | SetterOrUpdater<ICyberSecurity>;
-}) => {
-  const setCredit = useSetRecoilState(totalCredit);
-  const SRC = subjectInfo.hasTaken ? checkbox : notcheckbox;
+}
+const CheckBox = ({ subjectInfo, setRecoilValue }: ICheckBox) => {
+  const [SRC, setTotal] = useCheckBox(subjectInfo);
   const checkArray = [
     majorBase,
     relation,
@@ -38,15 +32,13 @@ const CheckBox = ({
   ];
 
   const setFunc = () => {
+    setTotal();
+    subjectInfo.hasTaken ? setRecoilValue(plus) : setRecoilValue(minus);
     checkArray.forEach((array) => {
       array.forEach((data) => {
         if (data.name === subjectInfo.name) data.hasTaken = !data.hasTaken;
       });
     });
-    subjectInfo.hasTaken
-      ? setCredit((prev) => prev - subjectInfo.credit)
-      : setCredit((prev) => prev + subjectInfo.credit);
-    subjectInfo.hasTaken ? setRecoilValue(minus) : setRecoilValue(plus);
   };
 
   function minus(prev: any) {
