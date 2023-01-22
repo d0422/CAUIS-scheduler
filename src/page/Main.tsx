@@ -7,57 +7,65 @@ import swapButton from '../img/swap.png';
 import { useState } from 'react';
 import FusionComponent from '../components/FusionComponent';
 import IndustrialSecurityComponent from '../components/IndustrialSecurityComponent';
-import ElectionSection from '../components/ElectionSection';
 import RequireElectiveComponent from '../components/RequireElectiveComponent';
 import GeneralElectiveComponent from '../components/EssentialElectiveComponent';
+
 const Main = () => {
   const credit = useRecoilValue(totalCredit);
   const [selector, setSelector] = useState('산업보안학과');
   const [modal, setModal] = useState(false);
   const category = ['산업보안학과', '사이버융합전공', '필수교양', '공통교양'];
   return (
-    <Wrapper>
-      <TotalCredit>{credit} 학점 남았습니다.</TotalCredit>
-      <Header>
-        <ImgWrapper
-          onClick={() => {
-            setModal((prev) => !prev);
-          }}
-        >
-          <img src={swapButton} alt="img" width="30px" height="30px" />
-        </ImgWrapper>
+    <>
+      <AppTitle>📅졸업학점계산기</AppTitle>
+      <Wrapper>
+        <TotalCredit>{credit} 학점 남았습니다.</TotalCredit>
+        <Header>
+          <ImgWrapper
+            onClick={() => {
+              setModal((prev) => !prev);
+            }}
+          >
+            <img src={swapButton} alt="img" width="30px" height="30px" />
+          </ImgWrapper>
 
-        <Title>{selector}</Title>
-      </Header>
+          <Title>{selector}</Title>
+        </Header>
 
-      {modal && (
-        <Modal>
-          {category.map((c) => (
-            <CategoryTitle
-              key={c}
-              onClick={() => {
-                setSelector(c);
-                setModal(false);
-              }}
-            >
-              {c}
-            </CategoryTitle>
-          ))}
-        </Modal>
-      )}
+        {modal && (
+          <Modal>
+            {category.map((c) => (
+              <CategoryTitle
+                key={c}
+                onClick={() => {
+                  setSelector(c);
+                  setModal(false);
+                }}
+              >
+                {c}
+              </CategoryTitle>
+            ))}
+          </Modal>
+        )}
 
-      <hr></hr>
-      {selector === '사이버융합전공' && <FusionComponent />}
-      {selector === '산업보안학과' && <IndustrialSecurityComponent />}
-      {selector === '필수교양' && <RequireElectiveComponent />}
-      {selector === '공통교양' && <GeneralElectiveComponent />}
-      <Footer>만든 사람</Footer>
-      <Email>Email : rlfehd2013@naver.com</Email>
-      <Email>Instagram: _0422</Email>
-      <Text>오류 또는 데이터 부족시 연락 부탁드립니다.</Text>
-    </Wrapper>
+        <hr></hr>
+        {selector === '사이버융합전공' && <FusionComponent />}
+        {selector === '산업보안학과' && <IndustrialSecurityComponent />}
+        {selector === '필수교양' && <RequireElectiveComponent />}
+        {selector === '공통교양' && <GeneralElectiveComponent />}
+        <Footer>만든 사람</Footer>
+        <Email>Email : rlfehd2013@naver.com</Email>
+        <Email>Instagram: _0422</Email>
+        <Text>오류 또는 데이터 부족시 연락 부탁드립니다.</Text>
+      </Wrapper>
+    </>
   );
 };
+const AppTitle = styled.div`
+  font-size: 30px;
+  padding: 5px;
+  margin: 10px;
+`;
 const Footer = styled.div`
   font-size: 20px;
   text-align: end;
@@ -88,8 +96,9 @@ const CategoryTitle = styled.div`
   cursor: pointer;
 `;
 const TotalCredit = styled.div`
-  padding: 20px;
+  padding-bottom: 10px;
   font-size: 33px;
+  font-weight: 600;
 `;
 const Header = styled.div`
   display: flex;
