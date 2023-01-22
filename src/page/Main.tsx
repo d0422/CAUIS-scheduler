@@ -12,7 +12,7 @@ import RequireElectiveComponent from '../components/RequireElectiveComponent';
 import GeneralElectiveComponent from '../components/EssentialElectiveComponent';
 const Main = () => {
   const credit = useRecoilValue(totalCredit);
-  const [selector, setSelector] = useState('사이버융합전공');
+  const [selector, setSelector] = useState('산업보안학과');
   const [modal, setModal] = useState(false);
   const category = ['산업보안학과', '사이버융합전공', '필수교양', '공통교양'];
   return (

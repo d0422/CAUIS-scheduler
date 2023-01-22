@@ -29,7 +29,9 @@ const ElectionSection = ({
       ) : (
         <SubTitle>{data[0].type}</SubTitle>
       )}
-      <DataDisplay>{atomValue}학점 남았습니다.</DataDisplay>
+      <DataDisplay>
+        {atomValue >= 0 ? atomValue : 0}학점 남았습니다.
+      </DataDisplay>
       {toggle &&
         data.map((subjectData, index) => (
           <CheckBoxElection
