@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { RequireElective } from '../atom/atom';
 import { DataDisplay, SubTitle } from './MajorSection';
@@ -16,20 +16,28 @@ const ElectionSection = ({
   atomValue: number;
   setAtomValue: SetterOrUpdater<number>;
 }) => {
+  const [toggle, setToggle] = useState(true);
+  useEffect(() => {
+    if ('subtype' in data[0]) setToggle(false);
+  }, []);
   return (
     <>
       {'subtype' in data[0] ? (
-        <SubTitle>{data[0].subtype}</SubTitle>
+        <SubTitle onClick={() => setToggle((prev) => !prev)}>
+          {toggle ? '▼' : '▶'} {data[0].subtype}
+        </SubTitle>
       ) : (
         <SubTitle>{data[0].type}</SubTitle>
       )}
       <DataDisplay>{atomValue}학점 남았습니다.</DataDisplay>
-      {data.map((subjectData) => (
-        <CheckBoxElection
-          subjectInfo={subjectData}
-          setRecoilValue={setAtomValue}
-        />
-      ))}
+      {toggle &&
+        data.map((subjectData, index) => (
+          <CheckBoxElection
+            key={index}
+            subjectInfo={subjectData}
+            setRecoilValue={setAtomValue}
+          />
+        ))}
     </>
   );
 };

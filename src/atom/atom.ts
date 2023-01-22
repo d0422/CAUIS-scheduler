@@ -29,7 +29,16 @@ export const RequireElective = atom({
   default: 14,
 });
 
-export const GeneralElective = atom({
-  key: 'generalElective',
-  default: 15,
+export const EssentialElectionFusion = atom({
+  key: 'essentialElectionfusion',
+  default: 3,
+});
+
+export const EssentialElectionChallenge = atom({
+  key: 'essentialElectionChallenge',
+  default: 3,
+});
+export const EssentialElectionCreative = atom({
+  key: 'essentialElectionCreative',
+  default: 3,
 });

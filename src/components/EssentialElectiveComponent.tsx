@@ -1,16 +1,42 @@
 import { useRecoilState } from 'recoil';
-import { GeneralElective } from '../atom/atom';
-import { generalElective } from '../data/GE/general elective';
+import {
+  EssentialElectionChallenge,
+  EssentialElectionCreative,
+  EssentialElectionFusion,
+} from '../atom/atom';
+import {
+  generalElectiveChallenge,
+  generalElectiveCreative,
+  generalElectiveFusion,
+} from '../data/GE/general elective';
 import ElectionSection from './ElectionSection';
 
 const EssentialElectiveComponent = () => {
-  const [generalAtom, setGeneralAtom] = useRecoilState(GeneralElective);
+  const [generalFusionAtom, setGeneralFusionAtom] = useRecoilState(
+    EssentialElectionFusion
+  );
+  const [generalChallengeAtom, setGeneralChallengeAtom] = useRecoilState(
+    EssentialElectionChallenge
+  );
+  const [generalCreativeAtom, setGeneralCreativeAtom] = useRecoilState(
+    EssentialElectionCreative
+  );
   return (
     <>
       <ElectionSection
-        data={generalElective}
-        atomValue={generalAtom}
-        setAtomValue={setGeneralAtom}
+        data={generalElectiveFusion}
+        atomValue={generalFusionAtom}
+        setAtomValue={setGeneralFusionAtom}
+      />
+      <ElectionSection
+        data={generalElectiveChallenge}
+        atomValue={generalChallengeAtom}
+        setAtomValue={setGeneralChallengeAtom}
+      />
+      <ElectionSection
+        data={generalElectiveCreative}
+        atomValue={generalCreativeAtom}
+        setAtomValue={setGeneralCreativeAtom}
       />
     </>
   );

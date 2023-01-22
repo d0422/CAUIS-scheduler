@@ -60,6 +60,7 @@ const MajorSection = ({
 export const SubTitle = styled.div`
   justify-content: center;
   font-size: 15px;
+  cursor: pointer;
 `;
 export const DataDisplay = styled.div`
   font-size: 15px;
