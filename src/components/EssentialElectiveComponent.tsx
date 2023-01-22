@@ -3,11 +3,13 @@ import {
   EssentialElectionChallenge,
   EssentialElectionCreative,
   EssentialElectionFusion,
+  EssentialElectionTrust,
 } from '../atom/atom';
 import {
   generalElectiveChallenge,
   generalElectiveCreative,
   generalElectiveFusion,
+  generalElectiveTrust,
 } from '../data/GE/general elective';
 import ElectionSection from './ElectionSection';
 
@@ -20,6 +22,9 @@ const EssentialElectiveComponent = () => {
   );
   const [generalCreativeAtom, setGeneralCreativeAtom] = useRecoilState(
     EssentialElectionCreative
+  );
+  const [generalTrustAtom, setGeneralTrustAtom] = useRecoilState(
+    EssentialElectionTrust
   );
   return (
     <>
@@ -37,6 +42,11 @@ const EssentialElectiveComponent = () => {
         data={generalElectiveCreative}
         atomValue={generalCreativeAtom}
         setAtomValue={setGeneralCreativeAtom}
+      />
+      <ElectionSection
+        data={generalElectiveTrust}
+        atomValue={generalTrustAtom}
+        setAtomValue={setGeneralTrustAtom}
       />
     </>
   );
