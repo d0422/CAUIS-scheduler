@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { RequireElective } from '../atom/atom';
+import { useEffect, useState } from 'react';
+
 import { DataDisplay, SubTitle } from './MajorSection';
-import { requireElective } from '../data/GE/require elective';
 import CheckBoxElection from './CheckBoxElection';
+
 import { IEssentialElective, IRequireElective } from '../type/subject';
-import styled from 'styled-components';
+import { useSubjectTitle } from '../hooks/useSubjectTitle';
+
 type SetterOrUpdater<T> = (valOrUpdater: ((currVal: T) => T) | T) => void;
-const ElectionSection = ({
-  data,
-  atomValue,
-  setAtomValue,
-}: {
+interface IProps {
   data: IRequireElective[] | IEssentialElective[];
   atomValue: number;
   setAtomValue: SetterOrUpdater<number>;
-}) => {
+}
+
+const ElectionSection = ({ data, atomValue, setAtomValue }: IProps) => {
   const [toggle, setToggle] = useState(true);
+  const [getSubjectTitle] = useSubjectTitle(atomValue);
   useEffect(() => {
     if ('subtype' in data[0]) setToggle(false);
   }, []);
@@ -29,9 +28,7 @@ const ElectionSection = ({
       ) : (
         <SubTitle>{data[0].type}</SubTitle>
       )}
-      <DataDisplay>
-        {atomValue >= 0 ? atomValue : 0}학점 남았습니다.
-      </DataDisplay>
+      <DataDisplay>{getSubjectTitle()}학점 남았습니다.</DataDisplay>
       {toggle &&
         data.map((subjectData, index) => (
           <CheckBoxElection

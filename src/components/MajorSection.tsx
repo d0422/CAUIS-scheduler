@@ -1,48 +1,32 @@
-import React from 'react';
 import styled from 'styled-components';
+
+import CheckBox from './CheckBox';
+
 import {
-  FusionType,
   ICyberSecurity,
   IFusion,
   IIndustrialSecurity,
   ISubject,
-  subjectType,
 } from '../type/subject';
-import CheckBox from './CheckBox';
-type SetterOrUpdater<T> = (valOrUpdater: ((currVal: T) => T) | T) => void;
+import { useSubjectTitle } from '../hooks/useSubjectTitle';
 
-const MajorSection = ({
-  data,
-  recoilValue,
-  setRecoilValue,
-}: {
+type SetterOrUpdater<T> = (valOrUpdater: ((currVal: T) => T) | T) => void;
+interface IProps {
   data: IFusion[] | ISubject[];
   recoilValue: ICyberSecurity | IIndustrialSecurity;
   setRecoilValue:
     | SetterOrUpdater<IIndustrialSecurity>
     | SetterOrUpdater<ICyberSecurity>;
-}) => {
-  function getDisplayType(type: FusionType | subjectType): number {
-    if (type === '전공기초') {
-      return recoilValue.majorBase;
-    }
-    if (type === '전공필수') {
-      return recoilValue.majorRequire;
-    }
-    if (type === '관계학') {
-      return (recoilValue as ICyberSecurity).relation;
-    }
-    if (type === '전공') {
-      return (recoilValue as IIndustrialSecurity).major;
-    }
-    return 0;
-  }
+}
 
+const MajorSection = ({ data, recoilValue, setRecoilValue }: IProps) => {
+  const [getSubjectTitle] = useSubjectTitle(recoilValue, data[0].type);
+  const SUBJECT_TYPE = data[0].type;
   return (
     <>
-      <SubTitle>{data[0].type}</SubTitle>
+      <SubTitle>{SUBJECT_TYPE}</SubTitle>
       <DataDisplay>
-        {getDisplayType(data[0].type) >= 0 ? getDisplayType(data[0].type) : 0}
+        {getSubjectTitle()}
         학점 남았습니다.
       </DataDisplay>
       {data.map((d: IFusion | ISubject, i: number) => (

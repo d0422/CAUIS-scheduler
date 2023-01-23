@@ -3,7 +3,6 @@ import { useRecoilState } from 'recoil';
 import { RequireElective } from '../atom/atom';
 import { requireElective } from '../data/GE/require elective';
 
-import { IRequireElective } from '../type/subject';
 import ElectionSection from './ElectionSection';
 
 const RequireElectiveComponent = () => {

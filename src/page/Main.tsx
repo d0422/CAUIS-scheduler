@@ -9,6 +9,7 @@ import FusionComponent from '../components/FusionComponent';
 import IndustrialSecurityComponent from '../components/IndustrialSecurityComponent';
 import RequireElectiveComponent from '../components/RequireElectiveComponent';
 import GeneralElectiveComponent from '../components/EssentialElectiveComponent';
+import ListModal from '../components/ListModal';
 
 const Main = () => {
   const credit = useRecoilValue(totalCredit);
@@ -33,19 +34,11 @@ const Main = () => {
         </Header>
 
         {modal && (
-          <Modal>
-            {category.map((c) => (
-              <CategoryTitle
-                key={c}
-                onClick={() => {
-                  setSelector(c);
-                  setModal(false);
-                }}
-              >
-                {c}
-              </CategoryTitle>
-            ))}
-          </Modal>
+          <ListModal
+            category={category}
+            setSelector={setSelector}
+            setModal={setModal}
+          />
         )}
 
         <hr></hr>
@@ -89,12 +82,7 @@ const Title = styled.div`
   justify-content: center;
   font-size: 30px;
 `;
-const CategoryTitle = styled.div`
-  justify-content: center;
-  font-size: 30px;
-  padding-top: 5px;
-  cursor: pointer;
-`;
+
 const TotalCredit = styled.div`
   padding-bottom: 10px;
   font-size: 33px;
@@ -114,10 +102,5 @@ const ImgWrapper = styled.div`
   border-width: 1px;
   margin-right: 10px;
 `;
-const Modal = styled.div`
-  border: solid 1px;
-  padding-left: 55px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-`;
+
 export default Main;
