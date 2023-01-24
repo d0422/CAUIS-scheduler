@@ -61,5 +61,11 @@ const majorSubSet: ISubject[] = [
     credit: 3,
     hasTaken: false,
   },
+  {
+    name: '저작상표디자인법',
+    type: '전공',
+    credit: 3,
+    hasTaken: false,
+  },
 ];
 export default majorSubSet;

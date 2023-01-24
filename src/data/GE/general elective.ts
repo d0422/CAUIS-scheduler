@@ -79,13 +79,6 @@ export const generalElectiveFusion: IEssentialElective[] = [
     subtype: '융합',
   },
   {
-    name: '미래사회와미디어',
-    type: '핵심교양',
-    credit: 3,
-    hasTaken: false,
-    subtype: '융합',
-  },
-  {
     name: '생활속의생명과학',
     type: '핵심교양',
     credit: 3,
