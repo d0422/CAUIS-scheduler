@@ -7,7 +7,13 @@ const majorSubSet: ISubject[] = [
     hasTaken: false,
   },
   {
-    name: '경영경제데이터 분석 소프트웨어',
+    name: '경영경제 데이터 분석 소프트웨어',
+    type: '전공',
+    credit: 3,
+    hasTaken: false,
+  },
+  {
+    name: '경영경제데이터 소프트웨어 프로그래밍',
     type: '전공',
     credit: 3,
     hasTaken: false,
