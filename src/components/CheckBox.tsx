@@ -45,9 +45,6 @@ const CheckBox = ({ subjectInfo, setRecoilValue }: ICheckBox) => {
     const newObject = { ...prev };
     if (subjectInfo.type === '전공기초') {
       newObject.majorBase -= subjectInfo.credit;
-      if (newObject.major !== undefined) {
-        newObject.major -= subjectInfo.credit;
-      }
     }
     if (subjectInfo.type === '전공필수') {
       newObject.majorRequire -= subjectInfo.credit;
@@ -65,9 +62,6 @@ const CheckBox = ({ subjectInfo, setRecoilValue }: ICheckBox) => {
     const newObject = { ...prev };
     if (subjectInfo.type === '전공기초') {
       newObject.majorBase += subjectInfo.credit;
-      if (newObject.major !== undefined) {
-        newObject.major += subjectInfo.credit;
-      }
     }
 
     if (subjectInfo.type === '전공필수') {
