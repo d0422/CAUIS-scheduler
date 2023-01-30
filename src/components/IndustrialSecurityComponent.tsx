@@ -25,7 +25,6 @@ const IndustrialSecurityComponent = () => {
           setIndustrialSecurity((prev) => {
             const newObj = { ...prev };
             newObj.majorBase -= subjectData.credit;
-            newObj.major -= subjectData.credit;
             return newObj;
           });
         }
