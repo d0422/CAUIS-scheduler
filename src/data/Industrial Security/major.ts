@@ -73,5 +73,11 @@ const majorSubSet: ISubject[] = [
     credit: 3,
     hasTaken: false,
   },
+  {
+    name: '최신물리보안',
+    type: '전공',
+    credit: 3,
+    hasTaken: false,
+  },
 ];
 export default majorSubSet;
